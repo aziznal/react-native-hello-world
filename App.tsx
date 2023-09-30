@@ -7,9 +7,10 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {useCounterStore} from './lib/counter-store';
 
 function App(): JSX.Element {
-  const [counter, setCounter] = React.useState(0);
+  const {counter, increment, decrement} = useCounterStore();
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
@@ -21,9 +22,10 @@ function App(): JSX.Element {
 
       <Text className="text-teal-200 text-5xl">{counter}</Text>
 
-      <View className="flex-row">
-        <Button onPress={() => setCounter(c => c + 1)} title="Increment" />
-        <Button onPress={() => setCounter(c => c - 1)} title="Decrement" />
+      <View className="flex-row mt-4">
+        <Button onPress={increment} title="Increment" color="#bb1111" />
+        <View className="w-4" />
+        <Button onPress={decrement} title="Decrement" color="#11aa22" />
       </View>
     </SafeAreaView>
   );
