@@ -1,32 +1,30 @@
 import React from 'react';
 import {
+  Button,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   Text,
   useColorScheme,
+  View,
 } from 'react-native';
 
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
 function App(): JSX.Element {
+  const [counter, setCounter] = React.useState(0);
   const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView className="w-full h-screen flex flex-col items-center justify-center bg-blue-600">
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        translucent={true}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Text>Hello World!</Text>
-      </ScrollView>
+
+      <Text className="text-teal-200 text-5xl">{counter}</Text>
+
+      <View className="flex-row">
+        <Button onPress={() => setCounter(c => c + 1)} title="Increment" />
+        <Button onPress={() => setCounter(c => c - 1)} title="Decrement" />
+      </View>
     </SafeAreaView>
   );
 }
