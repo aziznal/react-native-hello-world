@@ -15,16 +15,16 @@ import {
   Navigation,
   type Options as ComponentOptions,
 } from 'react-native-navigation';
-import {NavDesitnations} from './navigation';
-import {Screen1Props} from './screens/Screen1';
-import {useCounterStore} from './counter-store';
+import {useCounterStore} from '../counter-store';
 
-export type AppProps = {componentId: string};
+export type Screen1Props = {componentId: string} & {
+  counter: number;
+};
 
-function App(props: AppProps): JSX.Element {
+const Screen1 = (props: Screen1Props): JSX.Element => {
+  const {setCounter} = useCounterStore();
+
   const isDarkMode = useColorScheme() === 'dark';
-
-  const {counter, setCounter} = useCounterStore();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#2f2f2f' : '#fafafa',
@@ -44,20 +44,8 @@ function App(props: AppProps): JSX.Element {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',
-    gap: 20,
+    gap: 40,
   };
-
-  const navigateToScreen1 = () => {
-    Navigation.push(props.componentId, {
-      component: {
-        name: NavDesitnations.Screen1.name,
-        passProps: {
-          counter: counter,
-        } satisfies Omit<Screen1Props, 'componentId'>,
-      },
-    });
-  };
-
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -66,22 +54,27 @@ function App(props: AppProps): JSX.Element {
       />
 
       <ScrollView contentContainerStyle={centeredColumnStyle}>
-        <Text style={textStyle}>Welcome to React Native</Text>
-        <Text style={textStyle}>Here's a counter: {counter}</Text>
-        <Button title="Increment" onPress={() => setCounter(counter + 1)} />
+        <Text style={textStyle}>Screen 1</Text>
+        <Text style={textStyle}>Here's App's Counter: {props.counter}</Text>
 
-        <Button title="To Screen 1" onPress={navigateToScreen1} />
+        <Text style={textStyle}>Guess what? you can reset it!</Text>
+        <Button title="reset counter" onPress={() => setCounter(0)} />
+
+        <Button
+          title="Back"
+          onPress={() => Navigation.pop(props.componentId)}
+        />
       </ScrollView>
     </SafeAreaView>
   );
-}
+};
 
-App.options = {
+Screen1.options = {
   topBar: {
     title: {
-      text: 'Home',
+      text: 'Screen 1',
     },
   },
 } satisfies ComponentOptions;
 
-export default App;
+export default Screen1;
