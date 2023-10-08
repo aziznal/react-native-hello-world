@@ -11,13 +11,15 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import type {Options as ComponentOptions} from 'react-native-navigation';
+
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   const [count, setCount] = React.useState(0);
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#2f2f2f' : 'white',
+    backgroundColor: isDarkMode ? '#2f2f2f' : '#fafafa',
   };
 
   const textStyle: StyleProp<TextStyle> = {
@@ -51,5 +53,13 @@ function App(): JSX.Element {
     </SafeAreaView>
   );
 }
+
+App.options = {
+  topBar: {
+    title: {
+      text: 'Home',
+    },
+  },
+} satisfies ComponentOptions;
 
 export default App;
