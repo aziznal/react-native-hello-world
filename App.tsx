@@ -67,10 +67,14 @@ function App(props: AppProps): JSX.Element {
 
       <ScrollView contentContainerStyle={centeredColumnStyle}>
         <Text style={textStyle}>Welcome to React Native</Text>
-        <Text style={textStyle}>Here's a counter: {counter}</Text>
+        <Text style={textStyle}>Counter: {counter}</Text>
         <Button title="Increment" onPress={() => setCounter(counter + 1)} />
 
-        <Button title="To Screen 1" onPress={navigateToScreen1} />
+        <Button
+          title="To Screen 1"
+          onPress={navigateToScreen1}
+          color="#841584"
+        />
       </ScrollView>
     </SafeAreaView>
   );
